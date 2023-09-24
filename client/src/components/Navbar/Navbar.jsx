@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { AuthContext } from "../../Context/AuthProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 const Navbar = () => {
   const { logoutUser } = useContext(AuthContext);
   const handleLogout = () => {

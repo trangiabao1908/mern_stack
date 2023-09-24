@@ -1,6 +1,6 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../Context/AuthProvider";
+import { AuthContext } from "../contexts/AuthProvider";
 import { CircularProgress, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 

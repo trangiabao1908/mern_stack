@@ -1,19 +1,27 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { Box, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import ModalUpdate from "../ModalUpdate/ModalUpdate";
-const ButtonActionPost = () => {
+import { PostContext } from "../../contexts/PostProvider";
+const ButtonActionPost = (props) => {
+  const { deletePost } = useContext(PostContext);
+  const { post } = props;
   const [OpenUpdateModal, setOpenUpdateModal] = useState(false);
   const handleOpenUpdateModal = () => {
     setOpenUpdateModal(true);
     console.log(OpenUpdateModal);
   };
+  const handleDelete = () => {
+    deletePost(post._id);
+  };
   return (
     <React.Fragment>
       <Box display={"flex"} flexDirection={"row"}>
-        <IconButton color="success">
+        <IconButton color="success" href={post.url} target="_blank">
           <SmartDisplayOutlinedIcon></SmartDisplayOutlinedIcon>
         </IconButton>
         <IconButton color="secondary" onClick={handleOpenUpdateModal}>
@@ -23,7 +31,7 @@ const ButtonActionPost = () => {
           openModal={OpenUpdateModal}
           setOpenUpdateModal={setOpenUpdateModal}
         ></ModalUpdate>
-        <IconButton color="error">
+        <IconButton color="error" onClick={handleDelete}>
           <DeleteForeverOutlinedIcon></DeleteForeverOutlinedIcon>
         </IconButton>
       </Box>

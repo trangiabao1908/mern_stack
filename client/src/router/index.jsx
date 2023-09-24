@@ -5,12 +5,14 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import ErrorLayout from "./ErrorLayout";
-import AuthProvider from "../Context/AuthProvider";
-
+import AuthProvider from "../contexts/AuthProvider";
+import PostProvider from "../contexts/PostProvider";
 const AuthLayout = () => {
   return (
     <AuthProvider>
-      <Outlet></Outlet>
+      <PostProvider>
+        <Outlet></Outlet>
+      </PostProvider>
     </AuthProvider>
   );
 };

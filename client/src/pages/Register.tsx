@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../Context/AuthProvider";
+import { AuthContext } from "../contexts/AuthProvider";
 import { Navigate } from "react-router-dom";
 import AlertMessage from "../components/AlertMessage/AlertMessage";
 
