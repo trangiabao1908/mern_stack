@@ -16,7 +16,7 @@ const middlewareController = {
       console.log(req.user);
       next();
     } catch (err) {
-      return res.status(403).json({ success: false, message: "Invalid Token" });
+      res.status(403).json({ success: false, message: "Invalid Token" });
     }
   },
 };

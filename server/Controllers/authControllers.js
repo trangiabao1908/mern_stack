@@ -107,7 +107,7 @@ const authController = {
         });
       }
     } catch (err) {
-      return res.status(500).json({ success: false, message: err.message });
+      res.status(500).json({ success: false, message: err.message });
     }
   },
 };
