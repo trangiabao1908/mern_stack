@@ -12,8 +12,10 @@ import {
 import Navbar from "../components/Navbar/Navbar";
 import SinglePost from "../components/SingePost/SinglePost";
 import { PostContext } from "../contexts/PostProvider";
+import { AuthContext } from "../contexts/AuthProvider";
 const Home = () => {
   const { postState, getPosts } = useContext(PostContext);
+  const { isUser } = useContext(AuthContext);
   const { post, posts, isPostLoading } = postState;
   console.log(postState);
   useEffect(() => {
@@ -51,7 +53,7 @@ const Home = () => {
             <Card raised>
               <CardHeader
                 sx={{ backgroundColor: "#f3f6f4" }}
-                title="Hello TranGiaBao"
+                title={`Đây là website mearn-stack giúp cho việc học tập`}
                 titleTypographyProps={{
                   variant: "h5",
                   align: "center",
@@ -59,9 +61,6 @@ const Home = () => {
                 }}
               ></CardHeader>
               <CardContent>
-                <Typography component={"p"} fontSize={"18px"}>
-                  Đây là website mearn-stack giúp cho việc học tập
-                </Typography>
                 <Typography
                   component={"p"}
                   fontSize={"16px"}

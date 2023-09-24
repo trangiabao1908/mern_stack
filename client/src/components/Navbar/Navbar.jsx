@@ -10,7 +10,7 @@ import {
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { AuthContext } from "../../contexts/AuthProvider";
 const Navbar = () => {
-  const { logoutUser } = useContext(AuthContext);
+  const { logoutUser, isUser } = useContext(AuthContext);
   const handleLogout = () => {
     logoutUser();
   };
@@ -47,7 +47,7 @@ const Navbar = () => {
               alignItems={"center"}
             >
               <Typography variant="h6" color={"black"} mr={"20px"}>
-                Welcome trangiabao
+                {isUser?.user?.username && `Welcome ${isUser.user.username}`}
               </Typography>
               <Button
                 onClick={handleLogout}

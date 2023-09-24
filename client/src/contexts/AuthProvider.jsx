@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthReducer from "../reducer/AuthReducer";
 import AlertMessage from "../components/AlertMessage/AlertMessage";
+import { urlServer } from "./constants";
+import configAxios from "../utils/apiAxiosHeader";
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -18,24 +20,11 @@ const AuthProvider = ({ children }) => {
     isAuthenticated: false,
     user: null,
   });
-  const url = "http://localhost:5000/api";
-  const accessTokenValue = () => {
-    let AccessToken;
-    if (localStorage.getItem("AccessToken")) {
-      AccessToken = localStorage.getItem("AccessToken");
-    }
-    return AccessToken;
-  };
   //get info user
   const getUser = async () => {
-    const AccessToken = accessTokenValue();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    };
+    const config = configAxios();
     try {
-      const infoUser = await axios.get(`${url}/auth`, config);
+      const infoUser = await axios.get(`${urlServer}/api/auth`, config);
       console.log(infoUser.data);
       if (infoUser.data.success) {
         dispatch({
@@ -48,6 +37,7 @@ const AuthProvider = ({ children }) => {
     }
   };
   console.log(isUser);
+
   // UseEffect to get user
   useEffect(() => {
     getUser();
@@ -57,13 +47,12 @@ const AuthProvider = ({ children }) => {
   // function Login logic
   const loginUser = async (userValue) => {
     try {
-      const res = await axios.post(`${url}/auth/login`, userValue);
+      const res = await axios.post(`${urlServer}/api/auth/login`, userValue);
       if (res.data.success === true) {
         localStorage.setItem("AccessToken", res.data.accessToken);
         setOpenAlert(true);
         setInfoAlert({ message: res.data.message, time: 3000 });
       }
-
       await getUser();
       return res.data;
     } catch (error) {
@@ -75,7 +64,10 @@ const AuthProvider = ({ children }) => {
   //function to register new user
   const registerUser = async (userValue) => {
     try {
-      const response = await axios.post(`${url}/auth/register`, userValue);
+      const response = await axios.post(
+        `${urlServer}/api/auth/register`,
+        userValue
+      );
       if (response.data.success === true) {
         setOpenAlert(true);
         setInfoAlert({ message: response.data.message, time: 2000 });
