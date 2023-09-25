@@ -13,7 +13,6 @@ const middlewareController = {
     try {
       const decoded = jwt.verify(token, process.env.ACCESTOKEN_SECRET);
       req.user = decoded;
-      console.log(req.user);
       next();
     } catch (err) {
       res.status(403).json({ success: false, message: "Invalid Token" });

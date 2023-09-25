@@ -33,7 +33,6 @@ const Login = () => {
         setOpenAlert(true);
         setInfoAlert({ type: "error", message: user.message, time: 3000 });
       }
-      console.log(user);
     } catch (err) {
       console.log(err);
     }

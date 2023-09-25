@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
     const config = configAxios();
     try {
       const infoUser = await axios.get(`${urlServer}/api/auth`, config);
-      console.log(infoUser.data);
+
       if (infoUser.data.success) {
         dispatch({
           type: "GET_USER",
@@ -36,7 +36,6 @@ const AuthProvider = ({ children }) => {
       localStorage.clear();
     }
   };
-  console.log(isUser);
 
   // UseEffect to get user
   useEffect(() => {
@@ -73,7 +72,7 @@ const AuthProvider = ({ children }) => {
         setInfoAlert({ message: response.data.message, time: 2000 });
         navigate("/login");
       }
-      console.log(userValue);
+
       return response;
     } catch (err) {
       if (err.response.data) return err.response.data;

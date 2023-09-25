@@ -1,22 +1,13 @@
 /* eslint-disable react/prop-types */
-import {
-  Modal,
-  Box,
-  TextField,
-  Button,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl,
-} from "@mui/material";
-import React, { useState, useContext, useEffect } from "react";
+import { Modal, Box, TextField, Button } from "@mui/material";
+import React, { useState, useContext } from "react";
 import { PostContext } from "../../contexts/PostProvider";
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 500,
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
@@ -24,27 +15,32 @@ const style = {
   px: 4,
   pb: 3,
 };
-const ModalUpdate = ({ openModal, setOpenUpdateModal }) => {
-  const {
-    updatePostLogic,
-    postState: { post },
-  } = useContext(PostContext);
+const ModalCreatePost = (props) => {
+  const { createPost } = useContext(PostContext);
+  const { openModal, setOpenCreatePost } = props;
   const handleClose = () => {
-    setOpenUpdateModal(!openModal);
-    setUpdatePost(post);
+    setOpenCreatePost(!openModal);
+    setNewPost({ title: "", description: "", url: "", status: "TO LEARN" });
   };
-  const [updatePost, setUpdatePost] = useState(post);
-  useEffect(() => {
-    setUpdatePost(post);
-  }, [post]);
-  const { title, description, status, url } = updatePost;
-  const handleChangeValue = (event) => {
-    setUpdatePost({ ...updatePost, [event.target.name]: event.target.value });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updatePostLogic(post._id, updatePost);
+  const handleCloseModal = () => {
     handleClose();
+  };
+  const [newPost, setNewPost] = useState({
+    title: "",
+    description: "",
+    status: "TO LEARN",
+    url: "",
+  });
+  const { title, description, url } = newPost;
+  const handleChangeValue = (event) => {
+    setNewPost({ ...newPost, [event.target.name]: event.target.value });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newpost = await createPost(newPost);
+    if (newpost.success) {
+      handleClose();
+    }
   };
   return (
     <React.Fragment>
@@ -55,7 +51,7 @@ const ModalUpdate = ({ openModal, setOpenUpdateModal }) => {
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, textAlign: "center" }}>
-          <h2 id=" parent-modal-title">Update Post</h2>
+          <h2 id=" parent-modal-title">Create Post</h2>
           <form onSubmit={handleSubmit}>
             <TextField
               label="Title"
@@ -85,33 +81,18 @@ const ModalUpdate = ({ openModal, setOpenUpdateModal }) => {
               type="text"
               onChange={handleChangeValue}
             ></TextField>
-            <FormControl fullWidth sx={{ mt: "20px" }}>
-              <InputLabel id="demo-simple-select-label">Status</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={status}
-                label="Status"
-                name="status"
-                onChange={handleChangeValue}
-              >
-                <MenuItem value={"TO LEARN"}>TO LEARN</MenuItem>
-                <MenuItem value={"LEARNING"}>LEARNING</MenuItem>
-                <MenuItem value={"LEARNED"}>LEARNED</MenuItem>
-              </Select>
-            </FormControl>
             <Box display={"flex"} justifyContent={"center"} mt={3}>
               <Button
                 variant="outlined"
                 color="primary"
                 type="button"
-                onClick={handleClose}
+                onClick={handleCloseModal}
                 sx={{ marginRight: "10px" }}
               >
                 Close
               </Button>
               <Button variant="outlined" color="primary" type="submit">
-                UPDATE
+                CREATE
               </Button>
             </Box>
           </form>
@@ -121,4 +102,4 @@ const ModalUpdate = ({ openModal, setOpenUpdateModal }) => {
   );
 };
 
-export default ModalUpdate;
+export default ModalCreatePost;

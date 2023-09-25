@@ -53,7 +53,7 @@ const SinglePost = (props) => {
               </Typography>
             </Grid>
             <Grid item xs={4} sx={{ height: "100%" }}>
-              <ButtonActionPost post={post}></ButtonActionPost>
+              <ButtonActionPost postValue={post}></ButtonActionPost>
             </Grid>
           </Grid>
         </Box>
