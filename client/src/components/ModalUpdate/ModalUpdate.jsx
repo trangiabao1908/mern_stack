@@ -16,7 +16,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 500,
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: 24,
@@ -68,9 +68,12 @@ const ModalUpdate = ({ openModal, setOpenUpdateModal }) => {
               onChange={handleChangeValue}
             ></TextField>
             <TextField
+              id="outlined-multiline-static"
               label="Description"
               value={description}
               name="description"
+              multiline
+              rows={4}
               sx={{ mt: "20px", width: "100%" }}
               variant="outlined"
               type="text"

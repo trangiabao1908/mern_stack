@@ -65,6 +65,8 @@ const ModalCreatePost = (props) => {
             ></TextField>
             <TextField
               label="Description"
+              multiline
+              rows={4}
               value={description}
               name="description"
               sx={{ mt: "20px", width: "100%" }}
