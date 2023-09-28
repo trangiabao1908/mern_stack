@@ -46,7 +46,12 @@ const Home = () => {
       ></ModalCreatePost>
       {posts.length > 0 ? (
         <>
-          <Box display={"flex"} flexWrap={"wrap"} justifyContent={"center"}>
+          <Box
+            display={"flex"}
+            flexWrap={"wrap"}
+            justifyContent={"center"}
+            mt={10}
+          >
             {posts.map((post, index) => {
               return (
                 <React.Fragment key={index}>
@@ -77,7 +82,7 @@ const Home = () => {
         <>
           <Container
             maxWidth="lg"
-            sx={{ textAlign: "center", marginTop: "50px" }}
+            sx={{ textAlign: "center", marginTop: "120px" }}
           >
             <Box display={"flex"} flexDirection={"column"}>
               <Card raised>
