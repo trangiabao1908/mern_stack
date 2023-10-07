@@ -98,6 +98,33 @@ const postController = {
       return res.status(500).json(err);
     }
   },
+
+  // SEARCH
+  // TO SEARCH POST WITH NAME VALUE
+  searchPost: async (req, res) => {
+    const searchValue = req.params.searchValue;
+    console.log(searchValue);
+    try {
+      const searchPost = await Post.find({
+        user: req.user.userId,
+        title: { $regex: ".*" + searchValue + ".*", $options: "i" },
+      });
+      if (searchPost.length > 0) {
+        return res.status(200).json({
+          success: true,
+          message: "Search successfully",
+          searchPost,
+        });
+      } else {
+        return res
+          .status(200)
+          .json({ success: true, message: "Invalid value", searchPost });
+      }
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ success: false, message: error.message });
+    }
+  },
 };
 
 module.exports = postController;

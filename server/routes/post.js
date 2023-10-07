@@ -4,6 +4,11 @@ const middlewareController = require("../Controllers/middlewareController.js");
 const postController = require("../Controllers/postController.js");
 
 router.get("/", middlewareController.verifyToken, postController.getPost);
+router.get(
+  "/search/:searchValue",
+  middlewareController.verifyToken,
+  postController.searchPost
+);
 router.post("/", middlewareController.verifyToken, postController.createPost);
 router.put("/:id", middlewareController.verifyToken, postController.updatePost);
 router.delete(
